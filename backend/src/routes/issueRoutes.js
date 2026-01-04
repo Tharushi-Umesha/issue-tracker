@@ -22,14 +22,6 @@ const issueValidation = [
 
 router.use(protect);
 
-router.options('/', (req, res) => {
-    res.sendStatus(200);
-});
-
-router.options('/:id', (req, res) => {
-    res.sendStatus(200);
-});
-
 router.get('/stats', getIssueStats);
 router.get('/', getIssues);
 router.get('/:id', getIssue);

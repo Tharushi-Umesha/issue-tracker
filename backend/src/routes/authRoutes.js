@@ -16,14 +16,6 @@ const loginValidation = [
     body('password').notEmpty().withMessage('Password is required')
 ];
 
-router.options('/register', (req, res) => {
-    res.sendStatus(200);
-});
-
-router.options('/login', (req, res) => {
-    res.sendStatus(200);
-});
-
 router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
 router.get('/me', protect, getMe);

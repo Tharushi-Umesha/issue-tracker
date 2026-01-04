@@ -18,7 +18,11 @@ interface Issue {
     created_at: string;
 }
 
-const IssueList: React.FC = () => {
+interface IssueListProps {
+    onIssuesChange?: (issues: Issue[]) => void;
+}
+
+const IssueList: React.FC<IssueListProps> = ({ onIssuesChange }) => {
     const [issues, setIssues] = useState<Issue[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -37,7 +41,12 @@ const IssueList: React.FC = () => {
             const response = await issuesAPI.getAll(filters);
             setIssues(response.data.issues);
             setTotalPages(response.data.totalPages);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+            if (onIssuesChange) {
+                onIssuesChange(response.data.issues);
+            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(getErrorMessage(err));
         } finally {
@@ -47,10 +56,10 @@ const IssueList: React.FC = () => {
 
     useEffect(() => {
         fetchIssues();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters.status, filters.priority, filters.page]);
 
-    // Debounced search
+
     useEffect(() => {
         const debouncedSearch = debounce(() => {
             fetchIssues();
@@ -61,7 +70,7 @@ const IssueList: React.FC = () => {
         } else {
             fetchIssues();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters.search]);
 
     const handleFilterChange = (name: string, value: string) => {
@@ -99,7 +108,7 @@ const IssueList: React.FC = () => {
                         ))}
                     </div>
 
-                    {/* Pagination */}
+
                     {totalPages > 1 && (
                         <div className="flex justify-center items-center gap-2">
                             <Button

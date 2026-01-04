@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IssueList from '../components/issues/IssueList';
 import Button from '../components/common/Button';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { exportToCSV, exportToJSON } from '../utils/helpers';
+
+interface Issue {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+  priority: string;
+  severity: string;
+  creator_name?: string;
+  created_at: string;
+}
 
 const IssuesPage: React.FC = () => {
   const navigate = useNavigate();
+  const [issues, setIssues] = useState<Issue[]>([]);
 
   const handleExportCSV = () => {
-    // This will be implemented with actual issue data
-    console.log('Export to CSV');
+    if (issues.length === 0) {
+      alert('No issues to export. Please wait for issues to load.');
+      return;
+    }
+    exportToCSV(issues, 'issues_export.csv');
   };
 
   const handleExportJSON = () => {
-    // This will be implemented with actual issue data
-    console.log('Export to JSON');
+    if (issues.length === 0) {
+      alert('No issues to export. Please wait for issues to load.');
+      return;
+    }
+    exportToJSON(issues, 'issues_export.json');
   };
 
   return (
@@ -23,10 +40,20 @@ const IssuesPage: React.FC = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-900">All Issues</h1>
         <div className="flex gap-3">
-          <Button variant="secondary" size="small" onClick={handleExportCSV}>
+          <Button
+            variant="secondary"
+            size="small"
+            onClick={handleExportCSV}
+            disabled={issues.length === 0}
+          >
             Export CSV
           </Button>
-          <Button variant="secondary" size="small" onClick={handleExportJSON}>
+          <Button
+            variant="secondary"
+            size="small"
+            onClick={handleExportJSON}
+            disabled={issues.length === 0}
+          >
             Export JSON
           </Button>
           <Button onClick={() => navigate('/issues/new')}>
@@ -35,7 +62,7 @@ const IssuesPage: React.FC = () => {
         </div>
       </div>
 
-      <IssueList />
+      <IssueList onIssuesChange={setIssues} />
     </div>
   );
 };

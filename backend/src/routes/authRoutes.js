@@ -5,6 +5,7 @@ const { protect } = require('../middleware/auth');
 
 const router = express.Router();
 
+
 const registerValidation = [
     body('name').trim().notEmpty().withMessage('Name is required'),
     body('email').isEmail().withMessage('Please provide a valid email'),
@@ -16,6 +17,7 @@ const loginValidation = [
     body('password').notEmpty().withMessage('Password is required')
 ];
 
+// Routes
 router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
 router.get('/me', protect, getMe);

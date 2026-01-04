@@ -7,12 +7,7 @@ const issueRoutes = require('./routes/issueRoutes');
 
 const app = express();
 
-app.use(cors({
-    origin: 'https://issue-tracker-frontend-lyart.vercel.app', // Your actual frontend URL
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

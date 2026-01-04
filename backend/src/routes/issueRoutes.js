@@ -12,7 +12,6 @@ const { protect } = require('../middleware/auth');
 
 const router = express.Router();
 
-
 const issueValidation = [
     body('title').trim().notEmpty().withMessage('Title is required'),
     body('description').trim().notEmpty().withMessage('Description is required'),
@@ -21,8 +20,15 @@ const issueValidation = [
     body('severity').optional().isIn(['Minor', 'Major', 'Critical']).withMessage('Invalid severity')
 ];
 
-
 router.use(protect);
+
+router.options('/', (req, res) => {
+    res.sendStatus(200);
+});
+
+router.options('/:id', (req, res) => {
+    res.sendStatus(200);
+});
 
 router.get('/stats', getIssueStats);
 router.get('/', getIssues);

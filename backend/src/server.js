@@ -8,30 +8,21 @@ const issueRoutes = require('./routes/issueRoutes');
 
 const app = express();
 
-// CORS Configuration
-const allowedOrigins = [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'https://issue-tracker-frontend-lyart.vercel.app',
-    process.env.FRONTEND_URL
-].filter(Boolean);
-
+// ===== CORS CONFIGURATION - CRITICAL =====
 app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps, Postman, etc.)
-        if (!origin) return callback(null, true);
-
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            console.log('Blocked origin:', origin);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:5173',
+        'https://issue-tracker-frontend-lyart.vercel.app'
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Length', 'X-Requested-With']
 }));
+
+// Handle preflight requests
+app.options('*', cors());
 
 // Middleware
 app.use(express.json());

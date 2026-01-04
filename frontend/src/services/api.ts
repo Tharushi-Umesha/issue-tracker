@@ -2,6 +2,9 @@ import axios, { type AxiosInstance } from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
+console.log('🔗 Current API URL:', API_URL); 
+console.log('🌍 Environment:', import.meta.env.MODE);
+
 const api: AxiosInstance = axios.create({
     baseURL: API_URL,
     headers: {

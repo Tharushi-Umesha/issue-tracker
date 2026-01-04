@@ -8,21 +8,8 @@ const issueRoutes = require('./routes/issueRoutes');
 
 const app = express();
 
-// ===== CORS CONFIGURATION - CRITICAL =====
-const corsOptions = {
-    origin: [
-        'http://localhost:3000',
-        'http://localhost:5173',
-        'https://issue-tracker-frontend-lyart.vercel.app'
-    ],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['Content-Length', 'X-Requested-With'],
-    optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
+// ===== SIMPLEST CORS - ALLOW ALL =====
+app.use(cors());
 
 // Middleware
 app.use(express.json());

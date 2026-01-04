@@ -9,7 +9,7 @@ const issueRoutes = require('./routes/issueRoutes');
 const app = express();
 
 // ===== CORS CONFIGURATION - CRITICAL =====
-app.use(cors({
+const corsOptions = {
     origin: [
         'http://localhost:3000',
         'http://localhost:5173',
@@ -18,11 +18,11 @@ app.use(cors({
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['Content-Length', 'X-Requested-With']
-}));
+    exposedHeaders: ['Content-Length', 'X-Requested-With'],
+    optionsSuccessStatus: 200
+};
 
-// Handle preflight requests
-app.options('*', cors());
+app.use(cors(corsOptions));
 
 // Middleware
 app.use(express.json());
@@ -34,8 +34,8 @@ app.use('/api/issues', issueRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'OK',
+    res.json({ 
+        status: 'OK', 
         message: 'Server is running',
         timestamp: new Date().toISOString()
     });

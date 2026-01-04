@@ -51,6 +51,7 @@ const startServer = async () => {
     }
 };
 
-module.exports = app;
+
 
 startServer();
+module.exports = app;

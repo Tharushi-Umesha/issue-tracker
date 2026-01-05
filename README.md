@@ -1,292 +1,222 @@
-# Issue Tracker - Full Stack Application
+# 🐛 Issue Tracker - Full Stack Application
 
-A comprehensive issue tracking system built with React (TypeScript), Express.js, and MySQL. Features user authentication, CRUD operations, search/filter functionality, and real-time issue management.
+A comprehensive issue tracking system built with React (TypeScript), Express.js, and MySQL. Features user authentication, full CRUD operations, advanced search/filter functionality, and real-time issue management with a modern, responsive UI.
 
 ## 🚀 Live Demo
 
-- **Frontend:** [Your Vercel URL]
-- **Backend API:** [Your Vercel URL]
+**Frontend:** [https://issue-tracker-frontend-orcin.vercel.app](https://issue-tracker-frontend-orcin.vercel.app)
 
-## 📋 Table of Contents
-
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Environment Variables](#environment-variables)
-- [Database Setup](#database-setup)
-- [Running Locally](#running-locally)
-- [Deployment](#deployment)
-- [API Endpoints](#api-endpoints)
-- [Screenshots](#screenshots)
+**Test Credentials:** Register a new account or use the demo
 
 ## ✨ Features
 
-### Core Features
-- ✅ User authentication (Register/Login) with JWT
-- ✅ Create, Read, Update, Delete (CRUD) operations for issues
-- ✅ Issue status tracking (Open, In Progress, Resolved, Closed)
-- ✅ Priority levels (Low, Medium, High, Critical)
-- ✅ Severity levels (Minor, Major, Critical)
-- ✅ Search and filter functionality with optimized API requests
-- ✅ Pagination for issue lists
-- ✅ Dashboard with issue statistics
-- ✅ Responsive design
+### Core Functionality ✅
+- **User Authentication** - Secure registration and login with JWT tokens
+- **Full CRUD Operations** - Create, Read, Update, Delete issues with validation
+- **Issue Management System**
+  - Track issues with title, description, status, priority, and severity
+  - Status workflow: Open → In Progress → Resolved → Closed
+  - Priority levels: Low, Medium, High, Critical
+  - Severity levels: Minor, Major, Critical
+- **Advanced Search & Filtering** - Real-time search with optimized debounced API calls
+- **Pagination** - Efficient handling of large datasets
+- **Dashboard with Statistics** - Visual overview with issue counts and completion rates
+- **Visual Indicators** - Color-coded badges and icons for quick identification
+- **Confirmation Prompts** - Safe deletion and status changes with user confirmation
 
-### Bonus Features
-- ✅ TypeScript in frontend
-- ✅ Export to CSV/JSON
-- ✅ Visual indicators (badges, colors, icons)
-- ✅ Confirmation prompts for destructive actions
-- ✅ Clean and modern UI/UX
-- ✅ Reusable component architecture
+### Bonus Features 🎯
+- **TypeScript Implementation** - Type-safe development with interfaces and type checking
+- **Export Functionality** - Download issues as CSV or JSON format
+- **Responsive Design** - Mobile-first approach, works on all devices
+- **Modern UI/UX** - Clean interface with Tailwind CSS and custom icons
+- **Reusable Component Architecture** - Modular, maintainable codebase
+- **Multi-Cloud Deployment** - AWS RDS + Render + Vercel
+- **Optimized Performance** - Debounced search, efficient pagination
+- **Error Handling** - Comprehensive error messages and validation
 
 ## 🛠 Tech Stack
 
 ### Frontend
-- **Framework:** React 18 with TypeScript
-- **Build Tool:** Vite
-- **Styling:** Tailwind CSS
-- **Routing:** React Router v6
-- **HTTP Client:** Axios
-- **State Management:** Context API
+| Technology | Purpose |
+|------------|---------|
+| React 18 | UI Framework |
+| TypeScript | Type Safety |
+| Vite | Build Tool & Dev Server |
+| Tailwind CSS | Styling |
+| React Router v6 | Client-side Routing |
+| Axios | HTTP Client |
+| Context API | State Management |
+
+**Deployment:** Vercel
 
 ### Backend
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** MySQL
-- **Authentication:** JWT (JSON Web Tokens)
-- **Password Hashing:** bcryptjs
-- **Validation:** express-validator
+| Technology | Purpose |
+|------------|---------|
+| Node.js | Runtime Environment |
+| Express.js | Web Framework |
+| MySQL | Relational Database |
+| JWT | Authentication |
+| bcryptjs | Password Hashing |
+| express-validator | Input Validation |
+
+**Deployment:** Render
+
+### Database
+- **AWS RDS MySQL** - Cloud-hosted relational database
+- Optimized queries with indexes
+- Foreign key constraints for data integrity
 
 ## 📁 Project Structure
 
 ```
 issue-tracker/
-├── frontend/                  # React TypeScript frontend
+├── frontend/                     # React TypeScript application
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── common/       # Reusable components (Button, Input, Modal, etc.)
-│   │   │   ├── layout/       # Layout components (Header, Sidebar)
-│   │   │   ├── auth/         # Authentication components (Login, Register)
-│   │   │   └── issues/       # Issue-specific components
-│   │   ├── context/          # React Context (Auth)
-│   │   ├── services/         # API service layer
-│   │   ├── utils/            # Utility functions
-│   │   ├── pages/            # Page components
-│   │   ├── App.tsx           # Main app component
-│   │   └── main.tsx          # Entry point
+│   │   │   ├── common/          # Reusable UI components
+│   │   │   │   ├── Button.tsx
+│   │   │   │   ├── Input.tsx
+│   │   │   │   ├── Modal.tsx
+│   │   │   │   ├── Badge.tsx
+│   │   │   │   └── ...
+│   │   │   ├── layout/          # Layout components
+│   │   │   │   ├── Header.tsx
+│   │   │   │   ├── Sidebar.tsx
+│   │   │   │   └── Layout.tsx
+│   │   │   ├── auth/            # Authentication
+│   │   │   │   ├── Login.tsx
+│   │   │   │   └── Register.tsx
+│   │   │   └── issues/          # Issue management
+│   │   │       ├── IssueList.tsx
+│   │   │       ├── IssueCard.tsx
+│   │   │       ├── IssueForm.tsx
+│   │   │       ├── IssueDetails.tsx
+│   │   │       └── IssueFilters.tsx
+│   │   ├── context/
+│   │   │   └── AuthContext.tsx  # Global auth state
+│   │   ├── services/
+│   │   │   └── api.ts           # API integration
+│   │   ├── utils/
+│   │   │   └── helpers.ts       # Utility functions
+│   │   ├── pages/               # Route pages
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── IssuesPage.tsx
+│   │   │   ├── LoginPage.tsx
+│   │   │   └── ...
+│   │   ├── assets/              # Images & icons
+│   │   └── types/               # TypeScript definitions
 │   ├── public/
-│   ├── package.json
-│   └── vite.config.ts
-│
-├── backend/                   # Express.js backend
-│   ├── src/
-│   │   ├── config/           # Database configuration
-│   │   ├── controllers/      # Route controllers
-│   │   ├── models/           # Database models
-│   │   ├── routes/           # API routes
-│   │   ├── middleware/       # Authentication middleware
-│   │   └── server.js         # Main server file
-│   ├── .env                  # Environment variables (not in git)
+│   ├── index.html
+│   ├── vite.config.ts
 │   └── package.json
 │
-└── README.md                 # This file
+├── backend/                      # Express.js API
+│   ├── src/
+│   │   ├── config/
+│   │   │   └── db.js            # MySQL connection
+│   │   ├── controllers/
+│   │   │   ├── authController.js
+│   │   │   └── issueController.js
+│   │   ├── models/
+│   │   │   ├── User.js
+│   │   │   └── Issue.js
+│   │   ├── routes/
+│   │   │   ├── authRoutes.js
+│   │   │   └── issueRoutes.js
+│   │   ├── middleware/
+│   │   │   └── auth.js          # JWT verification
+│   │   └── server.js
+│   ├── .env
+│   ├── vercel.json
+│   └── package.json
+│
+└── README.md
 ```
 
-## 📦 Prerequisites
+## 🚀 Getting Started
 
-Before you begin, ensure you have the following installed:
-- **Node.js** (v16 or higher)
-- **npm** or **yarn**
-- **MySQL** (v8.0 or higher)
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+- MySQL (v8.0 or higher)
 
-## 🔧 Installation
+### Installation
 
-### 1. Clone the repository
+1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/issue-tracker.git
+git clone https://github.com/Tharushi-Umesha/issue-tracker.git
 cd issue-tracker
 ```
 
-### 2. Install Backend Dependencies
+2. **Setup Backend**
 ```bash
 cd backend
 npm install
+
+# Create .env file
+cp .env.example .env
+# Edit .env with your database credentials
 ```
 
-### 3. Install Frontend Dependencies
-```bash
-cd ../frontend
-npm install
-```
-
-## 🔐 Environment Variables
-
-### Backend (.env)
-Create a `.env` file in the `backend/` directory:
-
-```env
-PORT=5000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=issue_tracker
-JWT_SECRET=your_super_secret_jwt_key_minimum_32_characters_long
-JWT_EXPIRE=7d
-NODE_ENV=development
-```
-
-### Frontend (.env)
-Create a `.env` file in the `frontend/` directory:
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-## 💾 Database Setup
-
-### 1. Create Database
+3. **Setup Database**
 ```sql
 CREATE DATABASE issue_tracker;
 USE issue_tracker;
+
+-- Run the SQL schema (provided in /backend/schema.sql)
 ```
 
-### 2. Create Tables
-```sql
--- Users table
-CREATE TABLE users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+4. **Setup Frontend**
+```bash
+cd frontend
+npm install
 
--- Issues table
-CREATE TABLE issues (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
-    status ENUM('Open', 'In Progress', 'Resolved', 'Closed') DEFAULT 'Open',
-    priority ENUM('Low', 'Medium', 'High', 'Critical') DEFAULT 'Medium',
-    severity ENUM('Minor', 'Major', 'Critical') DEFAULT 'Major',
-    created_by INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE,
-    INDEX idx_status (status),
-    INDEX idx_priority (priority),
-    FULLTEXT INDEX idx_search (title, description)
-);
+# Create .env file
+cp .env.example .env
+# Add backend API URL
 ```
 
-## 🏃 Running Locally
+5. **Run the Application**
 
-### Start Backend Server
+Terminal 1 - Backend:
 ```bash
 cd backend
 npm run dev
+# Server runs on http://localhost:5000
 ```
-Backend will run on `http://localhost:5000`
 
-### Start Frontend Development Server
+Terminal 2 - Frontend:
 ```bash
 cd frontend
 npm run dev
-```
-Frontend will run on `http://localhost:5173` or `http://localhost:3000`
-
-### Access the Application
-Open your browser and navigate to `http://localhost:5173`
-
-## 🚀 Deployment
-
-This project can be deployed to **Vercel** (both frontend and backend).
-
-### Prerequisites
-- GitHub account
-- Vercel account (free tier works)
-- Push your code to GitHub
-
-### Deploy Backend to Vercel
-
-1. **Create `vercel.json` in backend folder:**
-```json
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "src/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/server.js"
-    }
-  ]
-}
+# App runs on http://localhost:5173
 ```
 
-2. **Update `backend/src/server.js`** - Add at the end:
-```javascript
-// Export for Vercel
-module.exports = app;
-```
+## 🌐 Deployment
 
-3. **Deploy:**
-   - Go to [vercel.com](https://vercel.com)
-   - Click "Add New Project"
-   - Import your GitHub repository
-   - Set Root Directory: `backend`
-   - Add Environment Variables (from your .env file)
-   - Click Deploy
-   - Copy the deployment URL
+### Current Deployment Architecture
+- **Frontend:** Vercel (https://issue-tracker-frontend-orcin.vercel.app)
+- **Backend:** Render (Node.js environment)
+- **Database:** AWS RDS MySQL (Free Tier)
 
-### Deploy Frontend to Vercel
+### Environment Variables
 
-1. **Create `vercel.json` in frontend folder:**
-```json
-{
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
-}
-```
-
-2. **Update `.env.production`:**
+**Backend (.env)**
 ```env
-VITE_API_URL=https://your-backend.vercel.app/api
+PORT=5000
+DB_HOST=your_rds_endpoint
+DB_USER=admin
+DB_PASSWORD=your_password
+DB_NAME=issue_tracker
+JWT_SECRET=your_secret_key
+JWT_EXPIRE=7d
+NODE_ENV=production
 ```
 
-3. **Deploy:**
-   - Go to [vercel.com](https://vercel.com)
-   - Click "Add New Project"
-   - Import your GitHub repository
-   - Set Root Directory: `frontend`
-   - Add Environment Variable: `VITE_API_URL`
-   - Click Deploy
-
-### Update Backend CORS
-
-After deploying frontend, update backend environment variable:
+**Frontend (.env)**
+```env
+VITE_API_URL=https://your-backend-url/api
 ```
-FRONTEND_URL=https://your-frontend.vercel.app
-```
-
-### Database for Production
-
-**Option 1: Use free MySQL hosting**
-- [Aiven](https://aiven.io/) - Free MySQL hosting
-- [PlanetScale](https://planetscale.com/) - Serverless MySQL
-- [Clever Cloud](https://www.clever-cloud.com/) - Free tier MySQL
-
-**Option 2: Use your own MySQL server**
-- Update backend environment variables with production database credentials
 
 ## 📡 API Endpoints
 
@@ -299,77 +229,103 @@ GET    /api/auth/me          - Get current user (Protected)
 
 ### Issues
 ```
-GET    /api/issues           - Get all issues with filters (Protected)
-GET    /api/issues/stats     - Get issue statistics (Protected)
-GET    /api/issues/:id       - Get single issue (Protected)
-POST   /api/issues           - Create new issue (Protected)
-PUT    /api/issues/:id       - Update issue (Protected)
-DELETE /api/issues/:id       - Delete issue (Protected)
+GET    /api/issues           - Get all issues (with filters & pagination)
+GET    /api/issues/stats     - Get issue statistics
+GET    /api/issues/:id       - Get single issue
+POST   /api/issues           - Create new issue
+PUT    /api/issues/:id       - Update issue
+DELETE /api/issues/:id       - Delete issue
 ```
 
-### Query Parameters for GET /api/issues
+### Query Parameters
 - `page` - Page number (default: 1)
 - `limit` - Items per page (default: 10)
-- `status` - Filter by status (Open, In Progress, Resolved, Closed)
-- `priority` - Filter by priority (Low, Medium, High, Critical)
-- `search` - Search in title and description
+- `status` - Filter by status
+- `priority` - Filter by priority
+- `search` - Search in title/description
 
-## 📸 Screenshots
+## 🎨 Features Showcase
 
-[Add your screenshots here after deployment]
+### Dashboard
+- Real-time statistics with visual cards
+- Issue distribution by status
+- Progress bar showing completion rate
+- Quick navigation to different status views
+
+### Issue Management
+- Comprehensive form with validation
+- Inline editing capabilities
+- Bulk export to CSV/JSON
+- Advanced filtering and search
+
+### User Experience
+- Smooth animations and transitions
+- Loading indicators
+- Error handling with user-friendly messages
+- Confirmation dialogs for destructive actions
+
+## 🔒 Security Features
+
+- Password hashing with bcrypt (10 rounds)
+- JWT-based authentication
+- Protected routes and endpoints
+- Input validation and sanitization
+- SQL injection prevention
+- XSS protection
 
 ## 🧪 Testing
 
-### Test Backend API
 ```bash
-# Health check
-curl http://localhost:5000/api/health
+# Backend tests
+cd backend
+npm test
 
-# Register user
-curl -X POST http://localhost:5000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Test User","email":"test@example.com","password":"password123"}'
-```
-
-### Test Frontend
-```bash
+# Frontend tests
 cd frontend
-npm run build
+npm test
 ```
 
-## 🎨 Color Scheme
+## 📝 Code Quality
 
-- **Primary (Buttons):** `#980404` (Dark Red)
-- **Secondary (Cancel Buttons):** `#E6E6E6` (Light Gray)
-- **Forms Background:** `#F3F4F4` (Off White)
+- **TypeScript** for type safety
+- **ESLint** for code linting
+- **Prettier** for code formatting
+- **Modular architecture** for maintainability
+- **Reusable components** for consistency
 
-## 👤 Default User (for Testing)
+## 🤝 Contributing
 
-After deployment, register a new user:
-- Email: `admin@example.com`
-- Password: `admin123`
+Contributions are welcome! Please follow these steps:
 
-## 📝 License
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-This project is licensed under the MIT License.
+## 📄 License
 
-## 👨‍💻 Author
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+## 👤 Author
+
+**Tharushi Umesha Mahipala**
+
+- GitHub: [@Tharushi-Umesha](https://github.com/Tharushi-Umesha)
+- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/tharushi-umesha-mahipala-4b4b84280/)
+- Email: umemahee@gmail.com
 
 ## 🙏 Acknowledgments
 
-- Built as part of a technical assignment
-- Uses modern React and Express.js best practices
-- Implements secure authentication with JWT
-- Follows REST API design principles
+- Built as a technical assignment demonstrating full-stack development skills
+- Implements modern web development best practices
+- Uses industry-standard tools and technologies
+- Showcases problem-solving and system design capabilities
 
 ## 📞 Support
 
-For support, email your.email@example.com or create an issue in the repository.
+For questions or support, please create an issue in the GitHub repository or contact via email.
 
 ---
 
-**Note:** Remember to add your actual deployment URLs and screenshots after deploying the application.
+**⭐ If you find this project useful, please consider giving it a star!**
